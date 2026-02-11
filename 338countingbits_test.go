@@ -43,10 +43,10 @@ func countBits(n int) []int {
 	out := make([]int, n+1)
 
 	for i := 0; i <= n; i++ {
-		ones := i >> 1
-		saved := out[ones]
+		previous := i >> 1
+		ones := out[previous]
 		last := i & 1
-		out[i] = saved + last
+		out[i] = ones + last
 	}
 
 	return out
