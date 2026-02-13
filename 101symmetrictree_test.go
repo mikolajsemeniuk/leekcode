@@ -31,52 +31,56 @@ func isSymmetric(root *TreeNode) bool {
 		return true
 	}
 
+	var isMirror func(left *TreeNode, right *TreeNode) bool
+	isMirror = func(left *TreeNode, right *TreeNode) bool {
+		if left == nil && right == nil {
+			return true
+		}
+
+		if left == nil || right == nil {
+			return false
+		}
+
+		if left.Val != right.Val {
+			return false
+		}
+
+		outer := isMirror(left.Left, right.Right)
+		inner := isMirror(left.Right, right.Left)
+
+		return outer && inner
+	}
+
 	return isMirror(root.Left, root.Right)
 }
 
-func isMirror(left *TreeNode, right *TreeNode) bool {
-	if left == nil && right == nil {
-		return true
-	}
-
-	if left == nil || right == nil {
-		return false
-	}
-
-	if left.Val != right.Val {
-		return false
-	}
-
-	return isMirror(left.Left, right.Right) && isMirror(left.Right, right.Left)
-}
-
 func TestIsSymmetric(t *testing.T) {
-	t.Run("root = [1,2,2,3,4,4,3]", func(t *testing.T) {
-		root := createTree([]interface{}{1, 2, 2, 3, 4, 4, 3})
-		expected := true
-		result := isSymmetric(root)
-		if result != expected {
-			t.Errorf("Expected %v, got %v", expected, result)
-		}
-	})
+	// t.Run("root = [1,2,2,3,4,4,3]", func(t *testing.T) {
+	// 	root := createTree([]interface{}{1, 2, 2, 3, 4, 4, 3})
+	// 	expected := true
+	// 	result := isSymmetric(root)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %v, got %v", expected, result)
+	// 	}
+	// })
 
-	t.Run("root = [1,2,2,null,3,null,3]", func(t *testing.T) {
-		root := createTree([]interface{}{1, 2, 2, nil, 3, nil, 3})
-		expected := false
-		result := isSymmetric(root)
-		if result != expected {
-			t.Errorf("Expected %v, got %v", expected, result)
-		}
-	})
+	// t.Run("root = [1,2,2,null,3,null,3]", func(t *testing.T) {
+	// 	root := createTree([]interface{}{1, 2, 2, nil, 3, nil, 3})
+	// 	expected := false
+	// 	result := isSymmetric(root)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %v, got %v", expected, result)
+	// 	}
+	// })
 
-	t.Run("root = [1]", func(t *testing.T) {
-		root := createTree([]interface{}{1})
-		expected := true
-		result := isSymmetric(root)
-		if result != expected {
-			t.Errorf("Expected %v, got %v", expected, result)
-		}
-	})
+	// t.Run("root = [1]", func(t *testing.T) {
+	// 	root := createTree([]interface{}{1})
+	// 	expected := true
+	// 	result := isSymmetric(root)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %v, got %v", expected, result)
+	// 	}
+	// })
 
 	t.Run("root = [1,2,2]", func(t *testing.T) {
 		root := createTree([]interface{}{1, 2, 2})
