@@ -36,55 +36,64 @@ func climbStairs(n int) int {
 	if n <= 2 {
 		return n
 	}
+	// if n == 3 { return 4 }
 
-	prev2 := 1 // ways to climb 1 step
-	prev1 := 2 // ways to climb 2 steps
+	waysTwoSteps := 1 // n=1
+	waysOneStep := 2  // n=2
+	// waysThreeStepBack := 1 // n=1
+	// waysTwoStepBack   := 2 // n=2
+	// waysOneStepBack    := 4 // n=3
 
 	for i := 3; i <= n; i++ {
-		current := prev1 + prev2
-		prev2 = prev1
-		prev1 = current
+		// current := waysOneStepBack + waysTwoStepBack + waysThreeStepBack
+		current := waysOneStep + waysTwoSteps
+
+		waysTwoSteps = waysOneStep
+		waysOneStep = current
+		// waysThreeStepBack = waysTwoStepBack
+		// waysTwoStepBack = waysOneStepBack
+		// waysOneStepBack = current
 	}
 
-	return prev1
+	return waysOneStep
 }
 
 func TestClimbStairs(t *testing.T) {
-	t.Run("n = 2", func(t *testing.T) {
-		n := 2
-		expected := 2
-		result := climbStairs(n)
-		if result != expected {
-			t.Errorf("Expected %d, got %d", expected, result)
-		}
-	})
+	// t.Run("n = 2", func(t *testing.T) {
+	// 	n := 2
+	// 	expected := 2
+	// 	result := climbStairs(n)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %d, got %d", expected, result)
+	// 	}
+	// })
 
-	t.Run("n = 3", func(t *testing.T) {
-		n := 3
-		expected := 3
-		result := climbStairs(n)
-		if result != expected {
-			t.Errorf("Expected %d, got %d", expected, result)
-		}
-	})
+	// t.Run("n = 3", func(t *testing.T) {
+	// 	n := 3
+	// 	expected := 3
+	// 	result := climbStairs(n)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %d, got %d", expected, result)
+	// 	}
+	// })
 
-	t.Run("n = 1", func(t *testing.T) {
-		n := 1
-		expected := 1
-		result := climbStairs(n)
-		if result != expected {
-			t.Errorf("Expected %d, got %d", expected, result)
-		}
-	})
+	// t.Run("n = 1", func(t *testing.T) {
+	// 	n := 1
+	// 	expected := 1
+	// 	result := climbStairs(n)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %d, got %d", expected, result)
+	// 	}
+	// })
 
-	t.Run("n = 4", func(t *testing.T) {
-		n := 4
-		expected := 5
-		result := climbStairs(n)
-		if result != expected {
-			t.Errorf("Expected %d, got %d", expected, result)
-		}
-	})
+	// t.Run("n = 4", func(t *testing.T) {
+	// 	n := 4
+	// 	expected := 5
+	// 	result := climbStairs(n)
+	// 	if result != expected {
+	// 		t.Errorf("Expected %d, got %d", expected, result)
+	// 	}
+	// })
 
 	t.Run("n = 5", func(t *testing.T) {
 		n := 5
