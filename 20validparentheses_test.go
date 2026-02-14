@@ -1,6 +1,8 @@
 package leekcode
 
-import "testing"
+import (
+	"testing"
+)
 
 // https://leetcode.com/problems/valid-parentheses/description/
 //

@@ -59,41 +59,41 @@ func climbStairs(n int) int {
 }
 
 func TestClimbStairs(t *testing.T) {
-	// t.Run("n = 2", func(t *testing.T) {
-	// 	n := 2
-	// 	expected := 2
-	// 	result := climbStairs(n)
-	// 	if result != expected {
-	// 		t.Errorf("Expected %d, got %d", expected, result)
-	// 	}
-	// })
+	t.Run("n = 2", func(t *testing.T) {
+		n := 2
+		expected := 2
+		result := climbStairs(n)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
 
-	// t.Run("n = 3", func(t *testing.T) {
-	// 	n := 3
-	// 	expected := 3
-	// 	result := climbStairs(n)
-	// 	if result != expected {
-	// 		t.Errorf("Expected %d, got %d", expected, result)
-	// 	}
-	// })
+	t.Run("n = 3", func(t *testing.T) {
+		n := 3
+		expected := 3
+		result := climbStairs(n)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
 
-	// t.Run("n = 1", func(t *testing.T) {
-	// 	n := 1
-	// 	expected := 1
-	// 	result := climbStairs(n)
-	// 	if result != expected {
-	// 		t.Errorf("Expected %d, got %d", expected, result)
-	// 	}
-	// })
+	t.Run("n = 1", func(t *testing.T) {
+		n := 1
+		expected := 1
+		result := climbStairs(n)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
 
-	// t.Run("n = 4", func(t *testing.T) {
-	// 	n := 4
-	// 	expected := 5
-	// 	result := climbStairs(n)
-	// 	if result != expected {
-	// 		t.Errorf("Expected %d, got %d", expected, result)
-	// 	}
-	// })
+	t.Run("n = 4", func(t *testing.T) {
+		n := 4
+		expected := 5
+		result := climbStairs(n)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
 
 	t.Run("n = 5", func(t *testing.T) {
 		n := 5
