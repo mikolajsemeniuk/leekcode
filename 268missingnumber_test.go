@@ -55,14 +55,14 @@ func missingNumber(nums []int) int {
 }
 
 func TestMissingNumber(t *testing.T) {
-	// t.Run("nums = [3,0,1]", func(t *testing.T) {
-	// 	nums := []int{3, 0, 1}
-	// 	expected := 2
-	// 	result := missingNumber(nums)
-	// 	if result != expected {
-	// 		t.Errorf("Expected %d, got %d", expected, result)
-	// 	}
-	// })
+	t.Run("nums = [3,0,1]", func(t *testing.T) {
+		nums := []int{3, 0, 1}
+		expected := 2
+		result := missingNumber(nums)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
 
 	t.Run("nums = [0,1]", func(t *testing.T) {
 		nums := []int{0, 1}
