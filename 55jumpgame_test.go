@@ -49,14 +49,23 @@ func canJump(nums []int) bool {
 }
 
 func TestCanJump(t *testing.T) {
-	// t.Run("example 1: [2,3,1,1,4]", func(t *testing.T) {
-	// 	nums := []int{2, 3, 1, 1, 4}
-	// 	expected := true
-	// 	result := canJump(nums)
-	// 	if result != expected {
-	// 		t.Errorf("Expected %v, got %v", expected, result)
-	// 	}
-	// })
+	t.Run("example 2: [1,0,1,0,4]", func(t *testing.T) {
+		nums := []int{1, 0, 1, 0, 4}
+		expected := false
+		result := canJump(nums)
+		if result != expected {
+			t.Errorf("Expected %v, got %v", expected, result)
+		}
+	})
+
+	t.Run("example 1: [2,3,1,1,4]", func(t *testing.T) {
+		nums := []int{2, 3, 1, 1, 4}
+		expected := true
+		result := canJump(nums)
+		if result != expected {
+			t.Errorf("Expected %v, got %v", expected, result)
+		}
+	})
 
 	t.Run("example 2: [3,2,1,0,4]", func(t *testing.T) {
 		nums := []int{3, 2, 1, 0, 4}
