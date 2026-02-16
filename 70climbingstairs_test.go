@@ -59,18 +59,18 @@ func climbStairs(n int) int {
 }
 
 func TestClimbStairs(t *testing.T) {
-	t.Run("n = 2", func(t *testing.T) {
-		n := 2
-		expected := 2
+	t.Run("n = 3", func(t *testing.T) {
+		n := 3
+		expected := 3
 		result := climbStairs(n)
 		if result != expected {
 			t.Errorf("Expected %d, got %d", expected, result)
 		}
 	})
 
-	t.Run("n = 3", func(t *testing.T) {
-		n := 3
-		expected := 3
+	t.Run("n = 2", func(t *testing.T) {
+		n := 2
+		expected := 2
 		result := climbStairs(n)
 		if result != expected {
 			t.Errorf("Expected %d, got %d", expected, result)

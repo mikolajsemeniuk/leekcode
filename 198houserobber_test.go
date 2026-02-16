@@ -66,6 +66,15 @@ func rob(nums []int) int {
 }
 
 func TestRob(t *testing.T) {
+	t.Run("example 1: [100,1,2,100]", func(t *testing.T) {
+		nums := []int{100, 1, 2, 100}
+		expected := 200
+		result := rob(nums)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
+
 	t.Run("example 1: [1,2,3,1]", func(t *testing.T) {
 		nums := []int{1, 2, 3, 1}
 		expected := 4
