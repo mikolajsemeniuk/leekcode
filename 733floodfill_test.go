@@ -42,37 +42,32 @@ import (
 // 0 <= sr < m
 // 0 <= sc < n
 func floodFill(image [][]int, sr int, sc int, color int) [][]int {
-	// If the starting pixel already has the target color, no need to do anything
-	originalColor := image[sr][sc]
-	if originalColor == color {
+	if image[sr][sc] == color {
 		return image
 	}
 
-	// Perform DFS to fill all connected pixels
-	dfs(image, sr, sc, originalColor, color)
+	var fn func(image [][]int, row, col, original, updated int)
+	fn = func(image [][]int, row, col, original, updated int) {
+		if row < 0 || row >= len(image) || col < 0 || col >= len(image[0]) {
+			return
+		}
+
+		current := image[row][col]
+		if current != original {
+			return
+		}
+
+		image[row][col] = updated
+
+		fn(image, row-1, col, original, updated)
+		fn(image, row+1, col, original, updated)
+		fn(image, row, col-1, original, updated)
+		fn(image, row, col+1, original, updated)
+	}
+
+	fn(image, sr, sc, image[sr][sc], color)
+
 	return image
-}
-
-func dfs(image [][]int, row, col int, originalColor, newColor int) {
-	// Check boundaries
-	if row < 0 || row >= len(image) || col < 0 || col >= len(image[0]) {
-		return
-	}
-
-	// Check if current pixel has the original color
-	current := image[row][col]
-	if current != originalColor {
-		return
-	}
-
-	// Fill current pixel with new color
-	image[row][col] = newColor
-
-	// Recursively fill 4-directionally connected pixels
-	dfs(image, row-1, col, originalColor, newColor) // up
-	dfs(image, row+1, col, originalColor, newColor) // down
-	dfs(image, row, col-1, originalColor, newColor) // left
-	dfs(image, row, col+1, originalColor, newColor) // right
 }
 
 func TestFloodFill(t *testing.T) {
