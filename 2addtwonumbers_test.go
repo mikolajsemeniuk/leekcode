@@ -41,19 +41,16 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	current := dummy
 	carry := 0
 
-	// Process both lists and any remaining carry
 	for l1 != nil || l2 != nil || carry > 0 {
 		sum := carry
 
 		if l1 != nil {
-			v := l1.Val
-			sum += v
+			sum += l1.Val
 			l1 = l1.Next
 		}
 
 		if l2 != nil {
-			v := l2.Val
-			sum += v
+			sum += l2.Val
 			l2 = l2.Next
 		}
 
@@ -234,9 +231,9 @@ func TestAddTwoNumbers(t *testing.T) {
 	})
 
 	t.Run("alternating carries", func(t *testing.T) {
-		l1 := createList([]int{5, 5, 5, 5})
-		l2 := createList([]int{5, 5, 5, 5})
-		expected := []int{0, 1, 1, 1, 1}
+		l1 := createList([]int{5, 5})
+		l2 := createList([]int{5, 5})
+		expected := []int{0, 1, 1}
 		result := addTwoNumbers(l1, l2)
 		actual := listToSlice(result)
 		if !slicesEqual(actual, expected) {

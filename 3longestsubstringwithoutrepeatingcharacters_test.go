@@ -34,32 +34,22 @@ import (
 // 0 <= s.length <= 5 * 10^4
 // s consists of English letters, digits, symbols and spaces.
 func lengthOfLongestSubstring(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
+	start := 0
+	total := 0
+	m := map[rune]int{}
 
-	charIndex := make(map[rune]int) // stores the last seen index of each character
-	maxLength := 0
-	left := 0 // left pointer of the window
-
-	for right, char := range s {
-		// If character is already in the window, move left pointer
-		if lastIndex, exists := charIndex[char]; exists && lastIndex >= left {
-			// Move left pointer to the right of the last occurrence
-			left = lastIndex + 1
+	for i, char := range s {
+		if val, exists := m[char]; exists && val >= start {
+			start = val + 1
 		}
 
-		// Update the last seen index of current character
-		charIndex[char] = right
+		m[char] = i
 
-		// Calculate current window length and update max
-		currentLength := right - left + 1
-		if currentLength > maxLength {
-			maxLength = currentLength
-		}
+		current := i - start + 1
+		total = max(total, current)
 	}
 
-	return maxLength
+	return total
 }
 
 func TestLengthOfLongestSubstring(t *testing.T) {
