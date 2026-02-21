@@ -43,27 +43,24 @@ import (
 // 3 <= nums.length <= 3000
 // -10^5 <= nums[i] <= 10^5
 func threeSum(nums []int) [][]int {
-	result := [][]int{}
+	var out [][]int
 
 	if len(nums) < 3 {
-		return result
+		return out
 	}
 
-	// Sort the array to enable two-pointer technique and skip duplicates
 	sort.Ints(nums)
 
-	for i := 0; i < len(nums)-2; i++ {
-		// Skip duplicate values for the first element
+	for i := 0; i < len(nums); i++ {
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
 
 		// Early termination: if the smallest number is positive, no solution exists
 		if nums[i] > 0 {
-			break
+			return out
 		}
 
-		// Two-pointer approach for the remaining elements
 		left := i + 1
 		right := len(nums) - 1
 		target := -nums[i]
@@ -71,30 +68,35 @@ func threeSum(nums []int) [][]int {
 		for left < right {
 			sum := nums[left] + nums[right]
 
-			if sum == target {
-				// Found a triplet
-				result = append(result, []int{nums[i], nums[left], nums[right]})
-
-				// Skip duplicates for the second element
-				for left < right && nums[left] == nums[left+1] {
-					left++
-				}
-				// Skip duplicates for the third element
-				for left < right && nums[right] == nums[right-1] {
-					right--
-				}
-
+			if sum < target {
 				left++
+				continue
+			}
+
+			if sum > target {
 				right--
-			} else if sum < target {
+				continue
+			}
+
+			in := []int{nums[i], nums[left], nums[right]}
+			out = append(out, in)
+
+			// Skip duplicates for the second element
+			for left < right && nums[left] == nums[left+1] {
 				left++
-			} else {
+			}
+
+			// Skip duplicates for the third element
+			for left < right && nums[right] == nums[right-1] {
 				right--
 			}
+
+			left++
+			right--
 		}
 	}
 
-	return result
+	return out
 }
 
 // Helper function to compare two sets of triplets (order-independent)

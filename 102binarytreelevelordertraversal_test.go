@@ -34,23 +34,24 @@ import (
 func levelOrder(root *TreeNode) [][]int {
 	var out [][]int
 
-	var dfs func(*TreeNode, int)
-	dfs = func(n *TreeNode, depth int) {
+	var fn func(n *TreeNode, level int)
+	fn = func(n *TreeNode, level int) {
 		if n == nil {
 			return
 		}
 
-		if depth == len(out) {
+		if level == len(out) {
 			out = append(out, []int{})
 		}
 
-		out[depth] = append(out[depth], n.Val)
+		out[level] = append(out[level], n.Val)
 
-		dfs(n.Left, depth+1)
-		dfs(n.Right, depth+1)
+		fn(n.Left, level+1)
+		fn(n.Right, level+1)
 	}
 
-	dfs(root, 0)
+	fn(root, 0)
+
 	return out
 }
 
