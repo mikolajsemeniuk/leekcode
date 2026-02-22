@@ -76,6 +76,15 @@ func updateMatrix(mat [][]int) [][]int {
 }
 
 func TestUpdateMatrix(t *testing.T) {
+	t.Run("mat = [[1,1,1],[1,1,1],[1,1,0]]", func(t *testing.T) {
+		mat := [][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 0}}
+		expected := [][]int{{2, 2, 1}, {2, 1, 0}, {1, 0, 0}}
+		result := updateMatrix(mat)
+		if !reflect.DeepEqual(result, expected) {
+			t.Errorf("Expected %v, got %v", expected, result)
+		}
+	})
+
 	t.Run("mat = [[0,0,0],[0,1,0],[0,0,0]]", func(t *testing.T) {
 		mat := [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}
 		expected := [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}
