@@ -30,27 +30,28 @@ import (
 // -10 <= nums[i] <= 10
 // All the numbers of nums are unique.
 func subsets(nums []int) [][]int {
-	result := make([][]int, 0, 1<<len(nums))
-	current := make([]int, 0, len(nums))
+	out := make([][]int, 0, 1<<len(nums))
+	tmp := make([]int, 0, len(nums))
 
-	var dfs func(index int)
-	dfs = func(index int) {
+	var walk func(index int)
+	walk = func(index int) {
 		if index == len(nums) {
-			set := make([]int, len(current))
-			copy(set, current)
-			result = append(result, set)
+			in := make([]int, len(tmp))
+			copy(in, tmp)
+			out = append(out, in)
 			return
 		}
 
-		dfs(index + 1)
+		walk(index + 1)
+		tmp = append(tmp, nums[index])
 
-		current = append(current, nums[index])
-		dfs(index + 1)
-		current = current[:len(current)-1]
+		walk(index + 1)
+		tmp = tmp[:len(tmp)-1]
 	}
 
-	dfs(0)
-	return result
+	walk(0)
+
+	return out
 }
 
 // 1

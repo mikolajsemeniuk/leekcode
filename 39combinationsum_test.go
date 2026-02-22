@@ -40,15 +40,16 @@ import (
 // 1 <= target <= 40
 func combinationSum(candidates []int, target int) [][]int {
 	sort.Ints(candidates)
-	var result [][]int
+
+	var out [][]int
 	var current []int
 
-	var dfs func(start, remaining int)
-	dfs = func(start, remaining int) {
+	var fn func(start, remaining int)
+	fn = func(start, remaining int) {
 		if remaining == 0 {
-			combination := make([]int, len(current))
-			copy(combination, current)
-			result = append(result, combination)
+			in := make([]int, len(current))
+			copy(in, current)
+			out = append(out, in)
 			return
 		}
 
@@ -61,16 +62,45 @@ func combinationSum(candidates []int, target int) [][]int {
 			if value > remaining {
 				break
 			}
+
 			current = append(current, value)
-			dfs(i, remaining-value)
+			fn(i, remaining-value)
 			current = current[:len(current)-1]
 		}
 	}
 
-	dfs(0, target)
-	return result
+	fn(0, target)
+	return out
 }
 
+// start (rem=7)
+// ├─ 2  -> rem=5
+// │  ├─ 2 -> rem=3
+// │  │  ├─ 2 -> rem=1
+// │  │  │  ├─ 2 -> rem=-1 (stop)
+// │  │  │  ├─ 3 -> rem=-2 (stop)
+// │  │  │  ├─ 6 -> rem=-5 (stop)
+// │  │  │  └─ 7 -> rem=-6 (stop)
+// │  │  ├─ 3 -> rem=0  ✅ [2,2,3]
+// │  │  ├─ 6 -> rem=-3 (stop)
+// │  │  └─ 7 -> rem=-4 (stop)
+// │  ├─ 3 -> rem=2
+// │  │  ├─ 3 -> rem=-1 (stop)
+// │  │  ├─ 6 -> rem=-4 (stop)
+// │  │  └─ 7 -> rem=-5 (stop)
+// │  ├─ 6 -> rem=-1 (stop)
+// │  └─ 7 -> rem=-2 (stop)
+// ├─ 3 -> rem=4
+// │  ├─ 3 -> rem=1
+// │  │  ├─ 3 -> rem=-2 (stop)
+// │  │  ├─ 6 -> rem=-5 (stop)
+// │  │  └─ 7 -> rem=-6 (stop)
+// │  ├─ 6 -> rem=-2 (stop)
+// │  └─ 7 -> rem=-3 (stop)
+// ├─ 6 -> rem=1
+// │  ├─ 6 -> rem=-5 (stop)
+// │  └─ 7 -> rem=-6 (stop)
+// └─ 7 -> rem=0 ✅ [7]
 func TestCombinationSum(t *testing.T) {
 	t.Run("candidates = [2,3,6,7], target = 7", func(t *testing.T) {
 		candidates := []int{2, 3, 6, 7}

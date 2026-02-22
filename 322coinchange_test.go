@@ -73,11 +73,13 @@ func coinChange(coins []int, amount int) int {
 		out[i] = max
 	}
 
-	for i := 1; i <= amount; i++ {
+	for amt := 1; amt <= amount; amt++ {
 		for _, coin := range coins {
-			if coin <= i && out[i-coin]+1 < out[i] {
-				out[i] = out[i-coin] + 1
+			if coin > amt {
+				break
 			}
+
+			out[amt] = min(out[amt], out[amt-coin]+1)
 		}
 	}
 
@@ -89,6 +91,16 @@ func coinChange(coins []int, amount int) int {
 }
 
 func TestCoinChange(t *testing.T) {
+	t.Run("coins = [1,3,4], amount = 6", func(t *testing.T) {
+		coins := []int{1, 3, 4}
+		amount := 6
+		expected := 2
+		result := coinChange(coins, amount)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
+
 	t.Run("coins = [1,2,5], amount = 11", func(t *testing.T) {
 		coins := []int{1, 2, 5}
 		amount := 11
