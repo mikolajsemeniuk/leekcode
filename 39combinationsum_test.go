@@ -39,6 +39,8 @@ import (
 // All elements of candidates are distinct.
 // 1 <= target <= 40
 func combinationSum(candidates []int, target int) [][]int {
+	sort.Ints(candidates)
+
 	var out [][]int
 	var tmp []int
 
@@ -76,29 +78,29 @@ func combinationSum(candidates []int, target int) [][]int {
 // ├─ 2  -> rem=5
 // │  ├─ 2 -> rem=3
 // │  │  ├─ 2 -> rem=1
-// │  │  │  ├─ 2 -> rem=-1 (stop)
-// │  │  │  ├─ 3 -> rem=-2 (stop)
-// │  │  │  ├─ 6 -> rem=-5 (stop)
-// │  │  │  └─ 7 -> rem=-6 (stop)
+// │  │  │  ├─ 2 -> rem=-1 (return)
+// │  │  │  ├─ 3 -> rem=-2 (break)
+// │  │  │  ├─ 6 -> rem=-5 (break)
+// │  │  │  └─ 7 -> rem=-6 (break)
 // │  │  ├─ 3 -> rem=0  ✅ [2,2,3]
-// │  │  ├─ 6 -> rem=-3 (stop)
-// │  │  └─ 7 -> rem=-4 (stop)
+// │  │  ├─ 6 -> rem=-3 (break)
+// │  │  └─ 7 -> rem=-4 (break)
 // │  ├─ 3 -> rem=2
-// │  │  ├─ 3 -> rem=-1 (stop)
-// │  │  ├─ 6 -> rem=-4 (stop)
-// │  │  └─ 7 -> rem=-5 (stop)
-// │  ├─ 6 -> rem=-1 (stop)
-// │  └─ 7 -> rem=-2 (stop)
+// │  │  ├─ 3 -> rem=-1 (break)
+// │  │  ├─ 6 -> rem=-4 (break)
+// │  │  └─ 7 -> rem=-5 (break)
+// │  ├─ 6 -> rem=-1 (break)
+// │  └─ 7 -> rem=-2 (break)
 // ├─ 3 -> rem=4
 // │  ├─ 3 -> rem=1
-// │  │  ├─ 3 -> rem=-2 (stop)
-// │  │  ├─ 6 -> rem=-5 (stop)
-// │  │  └─ 7 -> rem=-6 (stop)
-// │  ├─ 6 -> rem=-2 (stop)
-// │  └─ 7 -> rem=-3 (stop)
+// │  │  ├─ 3 -> rem=-2 (break)
+// │  │  ├─ 6 -> rem=-5 (break)
+// │  │  └─ 7 -> rem=-6 (break)
+// │  ├─ 6 -> rem=-2 (break)
+// │  └─ 7 -> rem=-3 (break)
 // ├─ 6 -> rem=1
-// │  ├─ 6 -> rem=-5 (stop)
-// │  └─ 7 -> rem=-6 (stop)
+// │  ├─ 6 -> rem=-5 (break)
+// │  └─ 7 -> rem=-6 (break)
 // └─ 7 -> rem=0 ✅ [7]
 func TestCombinationSum(t *testing.T) {
 	t.Run("candidates = [2,3,6,7], target = 7", func(t *testing.T) {
