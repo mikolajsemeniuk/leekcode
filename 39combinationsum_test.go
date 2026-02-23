@@ -39,37 +39,36 @@ import (
 // All elements of candidates are distinct.
 // 1 <= target <= 40
 func combinationSum(candidates []int, target int) [][]int {
-	sort.Ints(candidates)
-
 	var out [][]int
-	var current []int
+	var tmp []int
 
-	var fn func(start, remaining int)
-	fn = func(start, remaining int) {
-		if remaining == 0 {
-			in := make([]int, len(current))
-			copy(in, current)
+	var walk func(start, left int)
+	walk = func(start, left int) {
+		if left == 0 {
+			in := make([]int, len(tmp))
+			copy(in, tmp)
 			out = append(out, in)
 			return
 		}
 
-		if remaining < 0 {
+		if left < 0 {
 			return
 		}
 
 		for i := start; i < len(candidates); i++ {
-			value := candidates[i]
-			if value > remaining {
+			val := candidates[i]
+			if val > left {
 				break
 			}
 
-			current = append(current, value)
-			fn(i, remaining-value)
-			current = current[:len(current)-1]
+			tmp = append(tmp, val)
+			walk(i, left-val)
+			tmp = tmp[:len(tmp)-1]
 		}
 	}
 
-	fn(0, target)
+	walk(0, target)
+
 	return out
 }
 
