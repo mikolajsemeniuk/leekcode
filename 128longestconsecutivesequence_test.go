@@ -27,10 +27,6 @@ import (
 // 0 <= nums.length <= 10^5
 // -10^9 <= nums[i] <= 10^9
 func longestConsecutive(nums []int) int {
-	if len(nums) == 0 {
-		return 0
-	}
-
 	set := make(map[int]struct{}, len(nums))
 	for _, n := range nums {
 		set[n] = struct{}{}
