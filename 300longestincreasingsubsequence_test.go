@@ -33,26 +33,26 @@ import (
 //
 // Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
 func lengthOfLIS(nums []int) int {
-	tails := make([]int, 0, len(nums))
-	for _, num := range nums {
-		left, right := 0, len(tails)
+	var out []int
+	for _, v := range nums {
+		left, right := 0, len(out)
 		for left < right {
 			mid := left + (right-left)/2
-			if tails[mid] < num {
+			if out[mid] < v {
 				left = mid + 1
 			} else {
 				right = mid
 			}
 		}
 
-		if left == len(tails) {
-			tails = append(tails, num)
+		if left == len(out) {
+			out = append(out, v)
 		} else {
-			tails[left] = num
+			out[left] = v
 		}
 	}
 
-	return len(tails)
+	return len(out)
 }
 
 func TestLengthOfLIS(t *testing.T) {

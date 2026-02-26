@@ -44,7 +44,6 @@ func updateMatrix(mat [][]int) [][]int {
 		dist[r] = make([]int, cols)
 		for c := 0; c < cols; c++ {
 			if mat[r][c] == 0 {
-				dist[r][c] = 0
 				queue = append(queue, [2]int{r, c})
 			} else {
 				dist[r][c] = -1
@@ -74,6 +73,46 @@ func updateMatrix(mat [][]int) [][]int {
 
 	return dist
 }
+
+// func updateMatrix(mat [][]int) [][]int {
+//     n, m := len(mat), len(mat[0])
+//     maxVal := n + m - 1
+
+//     for i := 0; i < n; i++ {
+//         for j := 0; j < m; j++ {
+//             if mat[i][j] == 0 {
+//                 continue
+//             }
+//             minVal := maxVal
+
+//             if i > 0 {
+//                 minVal = min(minVal, mat[i-1][j])
+//             }
+//             if j > 0 {
+//                 minVal = min(minVal, mat[i][j-1])
+//             }
+//             mat[i][j] = minVal + 1
+//         }
+//     }
+
+//     for i := n-1; i >= 0; i-- {
+//         for j := m-1; j >= 0; j-- {
+//             if mat[i][j] == 0 {
+//                 continue
+//             }
+//             minVal := maxVal
+
+//             if i < n - 1 {
+//                 minVal = min(minVal, mat[i+1][j])
+//             }
+//             if j < m - 1 {
+//                 minVal = min(minVal, mat[i][j+1])
+//             }
+//             mat[i][j] = min(minVal + 1, mat[i][j])
+//         }
+//     }
+//     return mat
+// }
 
 func TestUpdateMatrix(t *testing.T) {
 	t.Run("mat = [[1,1,1],[1,1,1],[1,1,0]]", func(t *testing.T) {

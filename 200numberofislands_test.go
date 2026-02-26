@@ -46,35 +46,32 @@ import (
 // 1 <= m, n <= 300
 // grid[i][j] is '0' or '1'.
 func numIslands(grid [][]byte) int {
-	if len(grid) == 0 || len(grid[0]) == 0 {
-		return 0
-	}
-
 	rows, cols := len(grid), len(grid[0])
-	count := 0
 
-	var visit func(r, c int)
-	visit = func(r, c int) {
+	var walk func(r, c int)
+	walk = func(r, c int) {
 		if r < 0 || r >= rows || c < 0 || c >= cols {
 			return
 		}
 
-		if grid[r][c] != '1' {
+		if grid[r][c] == '0' {
 			return
 		}
 
 		grid[r][c] = '0'
-		visit(r-1, c)
-		visit(r+1, c)
-		visit(r, c-1)
-		visit(r, c+1)
+
+		walk(r+1, c)
+		walk(r-1, c)
+		walk(r, c+1)
+		walk(r, c-1)
 	}
 
+	var count int
 	for r := 0; r < rows; r++ {
 		for c := 0; c < cols; c++ {
 			if grid[r][c] == '1' {
+				walk(r, c)
 				count++
-				visit(r, c)
 			}
 		}
 	}

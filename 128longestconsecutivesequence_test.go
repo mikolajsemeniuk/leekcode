@@ -27,29 +27,29 @@ import (
 // 0 <= nums.length <= 10^5
 // -10^9 <= nums[i] <= 10^9
 func longestConsecutive(nums []int) int {
-	set := make(map[int]struct{}, len(nums))
-	for _, n := range nums {
-		set[n] = struct{}{}
+	m := make(map[int]struct{}, len(nums))
+	for _, v := range nums {
+		m[v] = struct{}{}
 	}
 
-	longest := 0
-	for n := range set {
-		if _, exists := set[n-1]; exists {
+	var out int
+	for k := range m {
+		if _, exists := m[k-1]; exists {
 			continue
 		}
 
-		length := 1
-		for current := n + 1; ; current++ {
-			if _, exists := set[current]; !exists {
+		tmp := 1
+		for v := k + 1; ; v++ {
+			if _, exists := m[v]; !exists {
 				break
 			}
-			length++
+			tmp++
 		}
 
-		longest = max(longest, length)
+		out = max(out, tmp)
 	}
 
-	return longest
+	return out
 }
 
 func TestLongestConsecutive(t *testing.T) {

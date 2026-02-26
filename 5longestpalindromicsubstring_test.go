@@ -30,13 +30,12 @@ func longestPalindrome(s string) string {
 		return s
 	}
 
-	start, maxLen := 0, 1
-
-	expand := func(left, right int) {
+	start, total := 0, 0
+	walk := func(left, right int) {
 		for left >= 0 && right < len(s) && s[left] == s[right] {
-			length := right - left + 1
-			if length > maxLen {
-				maxLen = length
+			size := right - left + 1
+			if size > total {
+				total = size
 				start = left
 			}
 			left--
@@ -45,11 +44,11 @@ func longestPalindrome(s string) string {
 	}
 
 	for i := 0; i < len(s); i++ {
-		expand(i, i)
-		expand(i, i+1)
+		walk(i, i)
+		walk(i, i+1)
 	}
 
-	return s[start : start+maxLen]
+	return s[start : start+total]
 }
 
 func TestLongestPalindrome(t *testing.T) {

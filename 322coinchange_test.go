@@ -37,49 +37,23 @@ import (
 // 1 <= coins.length <= 12
 // 1 <= coins[i] <= 2^31 - 1
 // 0 <= amount <= 10^4
-// func coinChange(coins []int, amount int) int {
-// 	if amount == 0 {
-// 		return 0
-// 	}
-
-// 	slices.Sort(coins)
-// 	slices.Reverse(coins)
-
-// 	out := 0
-// 	total := amount
-// 	for _, v := range coins {
-// 		x := total / v
-// 		if x > 0 {
-// 			total -= x * v
-// 			out += x
-// 		}
-
-// 		if total == 0 {
-// 			return out
-// 		}
-// 	}
-
-// 	return -1
-// }
-
 func coinChange(coins []int, amount int) int {
-	if amount == 0 {
-		return 0
+	total := amount + 1
+	out := make([]int, total)
+	for i := 1; i < total; i++ {
+		out[i] = total
 	}
 
-	max := amount + 1
-	out := make([]int, amount+1)
-	for i := 1; i <= amount; i++ {
-		out[i] = max
-	}
-
-	for amt := 1; amt <= amount; amt++ {
+	for i := 1; i < total; i++ {
 		for _, coin := range coins {
-			if coin > amt {
-				break
+			if coin > i {
+				continue
 			}
 
-			out[amt] = min(out[amt], out[amt-coin]+1)
+			left := i - coin
+			needed := out[left]
+			count := needed + 1
+			out[i] = min(out[i], count)
 		}
 	}
 
