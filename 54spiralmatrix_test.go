@@ -32,9 +32,10 @@ func spiralOrder(matrix [][]int) []int {
 		return []int{}
 	}
 
-	top, bottom := 0, len(matrix)-1
-	left, right := 0, len(matrix[0])-1
-	result := make([]int, 0, len(matrix)*len(matrix[0]))
+	rows, cols := len(matrix), len(matrix[0])
+	top, bottom := 0, rows-1
+	left, right := 0, cols-1
+	result := make([]int, 0, rows*cols)
 
 	for top <= bottom && left <= right {
 		for c := left; c <= right; c++ {

@@ -33,9 +33,7 @@ func findMaxConsecutiveOnes(nums []int) int {
 	for i := 0; i < len(nums); i++ {
 		if nums[i] == 1 {
 			current++
-			if current > total {
-				total = current
-			}
+			total = max(total, current)
 		}
 
 		if nums[i] != 1 {

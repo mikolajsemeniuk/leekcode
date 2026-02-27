@@ -34,25 +34,33 @@ import (
 // 0 <= s.length <= 5 * 10^4
 // s consists of English letters, digits, symbols and spaces.
 func lengthOfLongestSubstring(s string) int {
-	start := 0
-	total := 0
-	m := map[rune]int{}
+	start, count := 0, 0
+	seen := map[rune]int{}
 
-	for i, char := range s {
-		if val, exists := m[char]; exists && val >= start {
+	for i, r := range s {
+		val, exists := seen[r]
+		if exists && val >= start {
 			start = val + 1
 		}
 
-		m[char] = i
+		seen[r] = i
 
 		current := i - start + 1
-		total = max(total, current)
+		count = max(count, current)
 	}
 
-	return total
+	return count
 }
 
 func TestLengthOfLongestSubstring(t *testing.T) {
+	t.Run("abba", func(t *testing.T) {
+		s := "abba"
+		expected := 2
+		result := lengthOfLongestSubstring(s)
+		if result != expected {
+			t.Errorf("Expected %d, got %d", expected, result)
+		}
+	})
 	t.Run("example 1: abcabcbb", func(t *testing.T) {
 		s := "abcabcbb"
 		expected := 3

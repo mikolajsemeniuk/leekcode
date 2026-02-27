@@ -31,16 +31,12 @@ import (
 // 1 <= nums.length <= 10^4
 // 0 <= nums[i] <= 10^5
 func canJump(nums []int) bool {
-	maxReach := 0
-	lastIndex := len(nums) - 1
+	reach, target := 0, len(nums)-1
+	for i := 0; i <= reach; i++ {
+		v := nums[i]
+		reach = max(reach, v+i)
 
-	for i := 0; i <= maxReach; i++ {
-		val := nums[i]
-		if i+val > maxReach {
-			maxReach = i + val
-		}
-
-		if maxReach >= lastIndex {
+		if reach >= target {
 			return true
 		}
 	}

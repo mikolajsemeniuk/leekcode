@@ -33,29 +33,20 @@ import (
 //
 // Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)
 func productExceptSelf(nums []int) []int {
-	n := len(nums)
-	result := make([]int, n)
+	out := make([]int, len(nums))
+	out[0] = 1
 
-	// First pass: calculate prefix products
-	// result[i] will contain the product of all elements to the left of i
-	result[0] = 1
-	for i := 1; i < n; i++ {
-		x := result[i-1]
-		y := nums[i-1]
-		result[i] = x * y
+	for i := 1; i < len(nums); i++ {
+		out[i] = out[i-1] * nums[i-1]
 	}
 
-	// Second pass: calculate suffix products and multiply with prefix
-	// Use a variable to track the product of all elements to the right
-	suffixProduct := 1
-	for i := n - 1; i >= 0; i-- {
-		x := result[i]
-		result[i] = x * suffixProduct
-		y := nums[i]
-		suffixProduct *= y
+	suffix := 1
+	for i := len(nums) - 1; i >= 0; i-- {
+		out[i] = out[i] * suffix
+		suffix *= nums[i]
 	}
 
-	return result
+	return out
 }
 
 func TestProductExceptSelf(t *testing.T) {

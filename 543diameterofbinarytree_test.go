@@ -37,27 +37,24 @@ type TreeNode struct {
 // The number of nodes in the tree is in the range [1, 10^4].
 // -100 <= Node.val <= 100
 func diameterOfBinaryTree(root *TreeNode) int {
-	diameter := 0
+	var out int
 
-	var depth func(*TreeNode) int
-	depth = func(node *TreeNode) int {
+	var walk func(*TreeNode) int
+	walk = func(node *TreeNode) int {
 		if node == nil {
 			return 0
 		}
 
-		left := depth(node.Left)
-		right := depth(node.Right)
+		left := walk(node.Left)
+		right := walk(node.Right)
 
-		current := left + right
-		if current > diameter {
-			diameter = current
-		}
+		out = max(out, left+right)
 
 		return max(left, right) + 1
 	}
 
-	depth(root)
-	return diameter
+	walk(root)
+	return out
 }
 
 // Helper function to create a binary tree from a level-order array

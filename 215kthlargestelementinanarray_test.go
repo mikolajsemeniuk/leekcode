@@ -1,7 +1,7 @@
 package leekcode
 
 import (
-	"math/rand"
+	"container/heap"
 	"testing"
 )
 
@@ -27,39 +27,37 @@ import (
 //
 // 1 <= k <= nums.length <= 10^5
 // -10^4 <= nums[i] <= 10^4
-func findKthLargest(a []int, k int) int {
-	n := len(a)
-	l := 0
-	r := n - 1
-	for l < r {
-		i, j := partition(a, l, r)
-		if n-k <= i {
-			r = i
-		} else if n-k > j {
-			l = j + 1
-		} else {
-			return a[n-k]
-		}
-	}
-	return a[n-k]
+type Heap []int
+
+func (h Heap) Len() int           { return len(h) }
+func (h Heap) Less(i, j int) bool { return h[i] < h[j] }
+func (h Heap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *Heap) Push(v any)        { *h = append(*h, v.(int)) }
+func (h *Heap) Pop() any {
+	tmp := *h
+	index := len(tmp) - 1
+	out := tmp[index]
+	*h = tmp[:index]
+	return out
 }
 
-func partition(a []int, l, r int) (int, int) {
-	pivot := a[l+rand.Intn(r-l+1)]
-	i := l
-	for i <= r {
-		if a[i] < pivot {
-			a[i], a[l] = a[l], a[i]
-			l++
-			i++
-		} else if a[i] > pivot {
-			a[i], a[r] = a[r], a[i]
-			r--
-		} else {
-			i++
+func findKthLargest(nums []int, k int) int {
+	h := Heap{}
+	heap.Init(&h)
+
+	for _, v := range nums {
+		if h.Len() < k {
+			heap.Push(&h, v)
+			continue
+		}
+
+		if v > h[0] {
+			h[0] = v
+			heap.Fix(&h, 0)
 		}
 	}
-	return l - 1, r
+
+	return h[0]
 }
 
 func TestFindKthLargest(t *testing.T) {

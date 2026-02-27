@@ -1,6 +1,7 @@
 package leekcode
 
 import (
+	"slices"
 	"testing"
 )
 
@@ -38,12 +39,8 @@ func rob(nums []int) int {
 		return 0
 	}
 
-	if len(nums) == 1 {
-		return nums[0]
-	}
-
-	if len(nums) == 2 {
-		return max(nums[0], nums[1])
+	if len(nums) < 3 {
+		return slices.Max(nums)
 	}
 
 	// dp[i] represents the maximum amount we can rob up to house i

@@ -35,12 +35,11 @@ import (
 // The number of nodes in each linked list is in the range [1, 100].
 // 0 <= Node.val <= 9
 // It is guaranteed that the list represents a number that does not have leading zeros.
-
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	dummy := &ListNode{} // Dummy head to simplify edge cases
-	current := dummy
-	carry := 0
+	dummy := &ListNode{}
+	head := dummy
 
+	var carry int
 	for l1 != nil || l2 != nil || carry > 0 {
 		sum := carry
 
@@ -55,8 +54,8 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 
 		carry = sum / 10
-		current.Next = &ListNode{Val: sum % 10}
-		current = current.Next
+		head.Next = &ListNode{Val: sum % 10}
+		head = head.Next
 	}
 
 	return dummy.Next

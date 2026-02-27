@@ -2,7 +2,6 @@ package leekcode
 
 import (
 	"reflect"
-	"slices"
 	"sort"
 	"testing"
 )
@@ -37,53 +36,33 @@ import (
 // 0 <= strs[i].length <= 100
 // strs[i] consists of lowercase English letters.
 func groupAnagrams(strs []string) [][]string {
-	var mod int = 1e9 + 7
+	// m := map[string][]string{}
+	// for _, v := range strs {
+	// 	runes := []rune(v)
+	// 	slices.Sort(runes)
+	// 	key := string(runes)
+	// 	m[key] = append(m[key], v)
+	// }
 
-	fn := func(str string) int {
-		if len(str) == 0 {
-			return 0
-		}
+	// out := make([][]string, len(m))
+	// var i int
+	// for _, v := range m {
+	// 	out[i] = v
+	// 	i++
+	// }
 
-		sum := 0
-		product := 1
-		for i := 0; i < len(str); i++ {
-			sum += int(str[i])
-			product = (product * int(str[i])) % mod
-		}
-
-		return (sum * product) % mod
-	}
-
-	m := map[int][]string{}
-	for _, elem := range strs {
-		key := fn(elem)
-		m[key] = append(m[key], elem)
-	}
-
-	var res [][]string
-	for _, value := range m {
-		res = append(res, value)
-	}
-
-	return res
-}
-
-func groupAnagramsSlower(strs []string) [][]string {
-	if len(strs) == 0 {
-		return [][]string{}
-	}
-
-	anagrams := map[string][]string{}
-
+	// return out
+	m := make(map[[26]byte][]string, len(strs))
 	for _, v := range strs {
-		runes := []rune(v)
-		slices.Sort(runes)
-		key := string(runes)
-		anagrams[key] = append(anagrams[key], v)
+		var key [26]byte
+		for i := 0; i < len(v); i++ {
+			key[v[i]-'a']++
+		}
+		m[key] = append(m[key], v)
 	}
 
-	out := make([][]string, 0, len(anagrams))
-	for _, v := range anagrams {
+	out := make([][]string, 0, len(m))
+	for _, v := range m {
 		out = append(out, v)
 	}
 
