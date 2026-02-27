@@ -32,87 +32,49 @@ import (
 // mat[i][j] is either 0 or 1.
 // There is at least one 0 in mat.
 func updateMatrix(mat [][]int) [][]int {
-	if len(mat) == 0 || len(mat[0]) == 0 {
-		return mat
-	}
+	n, m := len(mat), len(mat[0])
+	limit := n + m - 1
 
-	rows, cols := len(mat), len(mat[0])
-	dist := make([][]int, rows)
-	queue := make([][2]int, 0, rows*cols)
-
-	for r := 0; r < rows; r++ {
-		dist[r] = make([]int, cols)
-		for c := 0; c < cols; c++ {
-			if mat[r][c] == 0 {
-				queue = append(queue, [2]int{r, c})
-			} else {
-				dist[r][c] = -1
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			if mat[i][j] == 0 {
+				continue
 			}
+
+			v := limit
+			if i > 0 {
+				v = min(v, mat[i-1][j])
+			}
+
+			if j > 0 {
+				v = min(v, mat[i][j-1])
+			}
+
+			mat[i][j] = v + 1
 		}
 	}
 
-	directions := [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
-	head := 0
-	for head < len(queue) {
-		cell := queue[head]
-		head++
-		r, c := cell[0], cell[1]
+	for i := n - 1; i >= 0; i-- {
+		for j := m - 1; j >= 0; j-- {
+			if mat[i][j] == 0 {
+				continue
+			}
 
-		for _, d := range directions {
-			nr, nc := r+d[0], c+d[1]
-			if nr < 0 || nr >= rows || nc < 0 || nc >= cols {
-				continue
+			v := limit
+			if i < n-1 {
+				v = min(v, mat[i+1][j])
 			}
-			if dist[nr][nc] != -1 {
-				continue
+
+			if j < m-1 {
+				v = min(v, mat[i][j+1])
 			}
-			dist[nr][nc] = dist[r][c] + 1
-			queue = append(queue, [2]int{nr, nc})
+
+			mat[i][j] = min(mat[i][j], v+1)
 		}
 	}
 
-	return dist
+	return mat
 }
-
-// func updateMatrix(mat [][]int) [][]int {
-//     n, m := len(mat), len(mat[0])
-//     maxVal := n + m - 1
-
-//     for i := 0; i < n; i++ {
-//         for j := 0; j < m; j++ {
-//             if mat[i][j] == 0 {
-//                 continue
-//             }
-//             minVal := maxVal
-
-//             if i > 0 {
-//                 minVal = min(minVal, mat[i-1][j])
-//             }
-//             if j > 0 {
-//                 minVal = min(minVal, mat[i][j-1])
-//             }
-//             mat[i][j] = minVal + 1
-//         }
-//     }
-
-//     for i := n-1; i >= 0; i-- {
-//         for j := m-1; j >= 0; j-- {
-//             if mat[i][j] == 0 {
-//                 continue
-//             }
-//             minVal := maxVal
-
-//             if i < n - 1 {
-//                 minVal = min(minVal, mat[i+1][j])
-//             }
-//             if j < m - 1 {
-//                 minVal = min(minVal, mat[i][j+1])
-//             }
-//             mat[i][j] = min(minVal + 1, mat[i][j])
-//         }
-//     }
-//     return mat
-// }
 
 func TestUpdateMatrix(t *testing.T) {
 	t.Run("mat = [[1,1,1],[1,1,1],[1,1,0]]", func(t *testing.T) {
