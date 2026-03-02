@@ -44,7 +44,6 @@ func lengthOfLongestSubstring(s string) int {
 		}
 
 		seen[r] = i
-
 		current := i - start + 1
 		count = max(count, current)
 	}

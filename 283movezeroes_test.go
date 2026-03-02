@@ -33,18 +33,18 @@ import (
 func moveZeroes(nums []int) {
 	// Two-pointer approach
 	// leftPtr points to the position where the next non-zero should be placed
-	leftPtr := 0
+	var index int
 
 	// Move all non-zero elements to the front
 	for i := 0; i < len(nums); i++ {
 		if nums[i] != 0 {
-			nums[leftPtr] = nums[i]
-			leftPtr++
+			nums[index] = nums[i]
+			index++
 		}
 	}
 
 	// Fill the rest with zeros
-	for i := leftPtr; i < len(nums); i++ {
+	for i := index; i < len(nums); i++ {
 		nums[i] = 0
 	}
 }

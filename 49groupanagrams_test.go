@@ -52,9 +52,9 @@ func groupAnagrams(strs []string) [][]string {
 	// }
 
 	// return out
-	m := make(map[[26]byte][]string, len(strs))
+	m := make(map[[26]uint16][]string, len(strs))
 	for _, v := range strs {
-		var key [26]byte
+		var key [26]uint16
 		for i := 0; i < len(v); i++ {
 			key[v[i]-'a']++
 		}

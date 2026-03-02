@@ -28,42 +28,38 @@ import (
 // 1 <= m, n <= 10
 // -100 <= matrix[i][j] <= 100
 func spiralOrder(matrix [][]int) []int {
-	if len(matrix) == 0 || len(matrix[0]) == 0 {
-		return []int{}
-	}
-
 	rows, cols := len(matrix), len(matrix[0])
 	top, bottom := 0, rows-1
 	left, right := 0, cols-1
-	result := make([]int, 0, rows*cols)
 
+	var out []int
 	for top <= bottom && left <= right {
-		for c := left; c <= right; c++ {
-			result = append(result, matrix[top][c])
+		for i := left; i <= right; i++ {
+			out = append(out, matrix[top][i])
 		}
 		top++
 
-		for r := top; r <= bottom; r++ {
-			result = append(result, matrix[r][right])
+		for i := top; i <= bottom; i++ {
+			out = append(out, matrix[i][right])
 		}
 		right--
 
 		if top <= bottom {
-			for c := right; c >= left; c-- {
-				result = append(result, matrix[bottom][c])
+			for i := right; i >= left; i-- {
+				out = append(out, matrix[bottom][i])
 			}
 			bottom--
 		}
 
 		if left <= right {
-			for r := bottom; r >= top; r-- {
-				result = append(result, matrix[r][left])
+			for i := bottom; i >= top; i-- {
+				out = append(out, matrix[i][left])
 			}
 			left++
 		}
 	}
 
-	return result
+	return out
 }
 
 func TestSpiralOrder(t *testing.T) {

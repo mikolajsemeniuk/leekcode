@@ -36,19 +36,25 @@ func trap(height []int) int {
 	water := 0
 
 	for left < right {
+		// Wybieramy stronę, która jest niższa – to ona limituje wodę
 		if height[left] < height[right] {
+			// Jeśli obecny słupek jest wyższy/równy maxowi, aktualizujemy i skipujemy
 			if height[left] >= leftMax {
 				leftMax = height[left]
-			} else {
-				water += leftMax - height[left]
+				left++
+				continue
 			}
+			// Skoro nie weszło w continue, to znaczy, że możemy nalać wody
+			water += leftMax - height[left]
 			left++
 		} else {
+			// Analogicznie dla prawej strony
 			if height[right] >= rightMax {
 				rightMax = height[right]
-			} else {
-				water += rightMax - height[right]
+				right--
+				continue
 			}
+			water += rightMax - height[right]
 			right--
 		}
 	}

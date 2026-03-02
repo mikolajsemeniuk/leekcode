@@ -57,6 +57,7 @@ func combinationSum(candidates []int, target int) [][]int {
 			return
 		}
 
+		// Start from the current index to prevent duplicate combinations by never looking backward.
 		for i := start; i < len(candidates); i++ {
 			val := candidates[i]
 			if val > left {
@@ -64,6 +65,7 @@ func combinationSum(candidates []int, target int) [][]int {
 			}
 
 			tmp = append(tmp, val)
+			// Re-use the current index 'i' to allow the same candidate to be chosen multiple times.
 			walk(i, left-val)
 			tmp = tmp[:len(tmp)-1]
 		}

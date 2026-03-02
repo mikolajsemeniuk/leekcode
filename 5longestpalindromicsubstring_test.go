@@ -26,29 +26,26 @@ import (
 // 1 <= s.length <= 1000
 // s consist of only digits and English letters.
 func longestPalindrome(s string) string {
-	if len(s) <= 1 {
-		return s
-	}
+	start, end := 0, 0
 
-	start, total := 0, 0
 	walk := func(left, right int) {
 		for left >= 0 && right < len(s) && s[left] == s[right] {
-			size := right - left + 1
-			if size > total {
-				total = size
+			span := right - left + 1
+			if span > end {
 				start = left
+				end = span
 			}
 			left--
 			right++
 		}
 	}
 
-	for i := 0; i < len(s); i++ {
+	for i := range s {
 		walk(i, i)
 		walk(i, i+1)
 	}
 
-	return s[start : start+total]
+	return s[start : start+end]
 }
 
 func TestLongestPalindrome(t *testing.T) {
