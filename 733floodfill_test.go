@@ -42,30 +42,31 @@ import (
 // 0 <= sr < m
 // 0 <= sc < n
 func floodFill(image [][]int, sr int, sc int, color int) [][]int {
-	if image[sr][sc] == color {
+	current := image[sr][sc]
+	if current == color {
 		return image
 	}
 
-	var fn func(image [][]int, row, col, original, updated int)
-	fn = func(image [][]int, row, col, original, updated int) {
-		if row < 0 || row >= len(image) || col < 0 || col >= len(image[0]) {
+	rows, cols := len(image), len(image[0])
+	var walk func(r, c int)
+	walk = func(r, c int) {
+		if r < 0 || r >= rows || c < 0 || c >= cols {
 			return
 		}
 
-		current := image[row][col]
-		if current != original {
+		if image[r][c] != current {
 			return
 		}
 
-		image[row][col] = updated
+		image[r][c] = color
 
-		fn(image, row-1, col, original, updated)
-		fn(image, row+1, col, original, updated)
-		fn(image, row, col-1, original, updated)
-		fn(image, row, col+1, original, updated)
+		walk(r-1, c)
+		walk(r+1, c)
+		walk(r, c-1)
+		walk(r, c+1)
 	}
 
-	fn(image, sr, sc, image[sr][sc], color)
+	walk(sr, sc)
 
 	return image
 }
