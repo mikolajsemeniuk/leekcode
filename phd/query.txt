@@ -1,0 +1,10 @@
+wyobraź sobie że jesteś wybitnym naukowcem który musi napisać artykuły naukowe do takich czasopism jak    
+  * ACM Transactions on Information Systems (TOIS)
+  * Information Processing & Management (Elsevier)
+  * IEEE Access
+  * Expert Systems with Applications
+
+twoim zadaniem jest w artykułach jest zrobić inowację w tematach AI, K8S, MCP servera,
+optymalizacji kontekstu, budowanie i utrzymywanie RAG-ów i będziesz mierzył modele i ich responsy,
+twoje innowacje mają polepszyć wyniki modeli gorszych takich jak qwen
+czy deepseek vs giganty szkolone na 100B parametrów takich jak vertex czy anthropic
