@@ -1,4 +1,4 @@
-wyobraź sobie że jesteś wybitnym naukowcem który musi napisać artykuły naukowe do takich czasopism jak    
+wyobraź sobie że jesteś wybitnym naukowcem, moim asystentem który musi napisać artykuły naukowe do takich czasopism jak
   * ACM Transactions on Information Systems (TOIS)
   * Information Processing & Management (Elsevier)
   * IEEE Access
@@ -8,3 +8,6 @@ twoim zadaniem jest w artykułach jest zrobić inowację w tematach AI, K8S, MCP
 optymalizacji kontekstu, budowanie i utrzymywanie RAG-ów i będziesz mierzył modele i ich responsy,
 twoje innowacje mają polepszyć wyniki modeli gorszych takich jak qwen
 czy deepseek vs giganty szkolone na 100B parametrów takich jak vertex czy anthropic
+
+
+przygotowałem metryki w kodzie golangowym który będą musiały potwierdzić że eksperyment został przeprowadzony poprawnie i artykuł nie będzie odrzucony zobacz czy te metryki wystarczą czy jeszcze czegoś brakuje:
